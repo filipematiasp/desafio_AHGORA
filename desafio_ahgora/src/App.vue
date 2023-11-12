@@ -1,14 +1,14 @@
 <template>
-    <Search/>
+    <SearchSequenceBar/>
 </template>
 
 <script>
-import Search from './components/SearchSequenceBar.vue'
+import SearchSequenceBar from './components/SearchSequenceBar.vue'
 
 export default {
   name: 'App',
   components: {
-    Search
+    SearchSequenceBar
   }
 }
 </script>

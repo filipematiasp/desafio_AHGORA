@@ -1,10 +1,4 @@
-const dna = ["CTGAGA", "CTATGC", "TATTGT", "AGAGGG", "CCCCTA", "TCACTG"];
-
-
-console.log(sequenceSearch(dna));
-
-
-function sequenceSearch(dna){
+export default function sequenceSearch(dna){
     let searchResult = {
         count: 0,
         arr: []
