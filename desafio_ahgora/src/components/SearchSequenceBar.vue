@@ -25,6 +25,7 @@
 
 <script>
 import sequenceSearch from "../../public/script/sequenceSearch"
+import api from "../services/api"
 
 export default {
 
@@ -40,13 +41,13 @@ export default {
     analyzeDna() {
       this.species = '';
       if(this.radioCheck === 'frontend'){
-        this.frontEndAnalyzeDna()
+        this.frontEndAnalyzeDna();
       }
       if(this.radioCheck === 'backend'){
-        console.log('não implementado');
+        this.backEndAnalyzeDna();
       }
       if(this.radioCheck === 'bd'){
-        console.log('não implementado');
+        this.backEndAnalyzeBdDna();
       }
     },
     frontEndAnalyzeDna() {
@@ -60,6 +61,30 @@ export default {
       if(result.count === 0){
         this.species = 'HUMAN'
       }
+    },
+    backEndAnalyzeDna() {
+      let sanitized = this.sequenceDna.replace('[', "").replace(']', "").replace(/\s/g, '').replace(/["]/g, '').split(",")
+      let data = {
+        dna: sanitized
+      }
+      api.post("/analisyDna",data).then((response) => {
+        if(response.data.count > 0){
+          this.species = 'SIGMANO'
+        }
+        if(response.data.count === 0){
+          this.species = 'HUMAN'
+        }
+      })
+    },
+    backEndAnalyzeBdDna(){
+      let sanitized = this.sequenceDna.replace('[', "").replace(']', "").replace(/\s/g, '').replace(/["]/g, '').split(",")
+      let data = {
+        dna: sanitized
+      }
+      api.post("/analisyDnaBd",data).then((response) => {
+        console.log('segue filipe', response.data.specie)
+        this.species = `${response.data.specie}`
+      })
     }
   }
 }
